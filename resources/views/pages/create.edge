@@ -1,0 +1,32 @@
+@layout('layouts/main')
+@set('title', 'New post')
+
+@section('body')
+<section>
+    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+        <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
+            <form method="post" enctype="multipart/form-data">
+                @!component('components/input', {
+                name: 'title',
+                label:'Title'
+                })
+
+                @!component('components/input', {
+                name: 'content',
+                type: 'textarea',
+                label:'Content'
+                })
+
+                @!component('components/input', {
+                name: 'thumbnail',
+                type: 'file',
+                label:'Thumbnail'
+                })
+
+                <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            </form>
+        </div>
+    </div>
+</section>
+@end
