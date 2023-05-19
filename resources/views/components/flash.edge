@@ -4,4 +4,10 @@
     <span class="font-medium">{{ flashMessages.get('success') }}</span> 
 </div>
 @end
+
+@if(flashMessages.has('error'))
+<div class="p-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 overflow-hidden mx-auto max-w-screen-sm text-center" role="alert">
+    <span class="font-medium">{{ flashMessages.get('error') }}</span> 
+</div>
+@end
 </div>

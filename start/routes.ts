@@ -22,11 +22,11 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', 'PostsController.index' ).as('home')
 
-Route.get('/create', 'PostsController.create' )
+Route.get('/create', 'PostsController.create' ).as('post.create')
 Route.post('/create', 'PostsController.store' )
 
-Route.get('/post/:id', 'PostsController.show')
-Route.get('/post/:id/edit', 'PostsController.edit')
-Route.patch('/post/:id', 'PostsController.update')
+Route.get('/post/:id', 'PostsController.show').as('post.show')
+Route.get('/post/:id/edit', 'PostsController.edit').as('post.edit')
+Route.patch('/post/:id', 'PostsController.update').as('post.update')
 
-Route.delete('/post/:id', 'PostsController.destroy')
+Route.delete('/post/:id', 'PostsController.destroy').as('post.delete')
