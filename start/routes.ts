@@ -24,11 +24,11 @@ Route.get("/", "PostsController.index").as("home");
 Route.get("/post/:id", "PostsController.show").as("post.show");
 
 // routes for auth
-Route.get("/login", "AuthController.index").as("login");
+Route.get("/login", "AuthController.index").as("login").middleware(['guest']);
 Route.post("/login", "AuthController.login").as("doLogin");
-Route.get("/register", "AuthController.register").as("register");
+Route.get("/register", "AuthController.register").as("register").middleware(['guest']);
 Route.post("/register", "AuthController.create").as("doRegister");
-Route.post('/logout', 'AuthController.logout').as('logout')
+Route.post('/logout', 'AuthController.logout').as('logout').middleware(['auth'])
 
 // route for authenticated user
 Route.group(() => {
@@ -39,4 +39,4 @@ Route.group(() => {
   Route.patch("/post/:id", "PostsController.update").as("post.update");
 
   Route.delete("/post/:id", "PostsController.destroy").as("post.delete");
-}).middleware('auth');
+}).middleware(['auth']);
