@@ -1,6 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Post from "App/Models/Post";
-import PostValidator from "App/Validators/PostValidator"
+import PostValidator from "App/Validators/PostValidator";
 
 export default class PostsController {
   public async index({ view }: HttpContextContract) {
@@ -17,7 +17,7 @@ export default class PostsController {
       const post = new Post();
       const payload = await request.validate(PostValidator);
 
-      post.merge({...payload}).save();
+      post.merge({ ...payload }).save();
       session.flash({ success: "Post added successfully !" });
       return response.redirect().toRoute("home");
     } catch (error) {
@@ -35,7 +35,7 @@ export default class PostsController {
     return view.render("pages/edit", { post });
   }
 
-  public async update({ request, response, params, session }: HttpContextContract) {
+  public async update({request, response, params, session}: HttpContextContract) {
     try {
       const post = await Post.findOrFail(params.id);
       const payload = await request.validate(PostValidator);

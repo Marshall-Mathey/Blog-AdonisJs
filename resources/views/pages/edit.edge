@@ -6,6 +6,7 @@
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
             <form action="{{route('post.update', [post.id])}}?_method=patch" method="post" enctype="multipart/form-data">
+            {{ csrfField() }}
                 @!component('components/input', {
                 name: 'title',
                 label:'Title',

@@ -5,10 +5,9 @@
 <section class="mt-6 pt-2">
     <div class="px-4 mx-auto max-w-screen-xl">
         <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-            <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Blog
-            </h2>
-            <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">We use an agile approach to test
-                assumptions and connect with the needs of your audience early and often.</p>
+            <a href="{{route('post.create')}}"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">New
+                post</a>
         </div>
         <div class="grid gap-8 lg:grid-cols-2">
             @each(post in posts)
@@ -54,7 +53,8 @@
                 <div class="flex justify-between items-center">
                     <a href="{{route('post.edit', [post.id])}}" title="Edit">✏️</a>
                     <form action="{{route('post.delete', [post.id])}}?_method=delete" method="post">
-                        <button type="submit" title="Delete" >🗑️</button>
+                        {{ csrfField() }}
+                        <button type="submit" title="Delete">🗑️</button>
                     </form>
                 </div>
             </article>

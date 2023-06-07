@@ -18,15 +18,25 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import Route from "@ioc:Adonis/Core/Route";
 
-Route.get('/', 'PostsController.index' ).as('home')
+Route.get("/", "PostsController.index").as("home");
+Route.get("/post/:id", "PostsController.show").as("post.show");
 
-Route.get('/create', 'PostsController.create' ).as('post.create')
-Route.post('/create', 'PostsController.store' )
+// routes for auth
+Route.get("/login", "AuthController.index").as("login");
+Route.post("/login", "AuthController.login").as("doLogin");
+Route.get("/register", "AuthController.register").as("register");
+Route.post("/register", "AuthController.create").as("doRegister");
+Route.post('/logout', 'AuthController.logout').as('logout')
 
-Route.get('/post/:id', 'PostsController.show').as('post.show')
-Route.get('/post/:id/edit', 'PostsController.edit').as('post.edit')
-Route.patch('/post/:id', 'PostsController.update').as('post.update')
+// route for authenticated user
+Route.group(() => {
+  Route.get("/create", "PostsController.create").as("post.create");
+  Route.post("/create", "PostsController.store");
 
-Route.delete('/post/:id', 'PostsController.destroy').as('post.delete')
+  Route.get("/post/:id/edit", "PostsController.edit").as("post.edit");
+  Route.patch("/post/:id", "PostsController.update").as("post.update");
+
+  Route.delete("/post/:id", "PostsController.destroy").as("post.delete");
+}).middleware('auth');
