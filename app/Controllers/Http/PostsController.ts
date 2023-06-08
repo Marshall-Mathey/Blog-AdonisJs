@@ -3,21 +3,36 @@ import Post from "App/Models/Post";
 import PostValidator from "App/Validators/PostValidator";
 
 export default class PostsController {
-  public async index({ view }: HttpContextContract) {
-    const posts = await Post.all();
-    return view.render("pages/index", { posts });
+  public async index({ view, auth }: HttpContextContract) {
+    //if (!auth.user) {
+  //const posts = await Post.all();
+     // return view.render("pages/index", { posts });
+//} else {
+      const user = auth.user;
+      await user?.load("posts");
+      const posts = user?.posts;
+      return view.render("pages/index", { posts });
+//}
   }
 
   public async create({ view }: HttpContextContract) {
     return view.render("pages/create");
   }
 
-  public async store({ request, response, session }: HttpContextContract) {
+  public async store({
+    request,
+    response,
+    session,
+    auth,
+  }: HttpContextContract) {
     try {
-      const post = new Post();
       const payload = await request.validate(PostValidator);
 
-      post.merge({ ...payload }).save();
+      await auth.user?.related("posts").create({
+        title: payload.title,
+        content: payload.content,
+      });
+
       session.flash({ success: "Post added successfully !" });
       return response.redirect().toRoute("home");
     } catch (error) {
@@ -35,7 +50,12 @@ export default class PostsController {
     return view.render("pages/edit", { post });
   }
 
-  public async update({request, response, params, session}: HttpContextContract) {
+  public async update({
+    request,
+    response,
+    params,
+    session,
+  }: HttpContextContract) {
     try {
       const post = await Post.findOrFail(params.id);
       const payload = await request.validate(PostValidator);

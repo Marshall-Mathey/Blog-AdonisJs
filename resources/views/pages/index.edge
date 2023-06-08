@@ -25,7 +25,7 @@
                         </svg>
                         Tutorial
                     </span>
-                    <span class="text-sm">14 days ago</span>
+                    <span class="text-sm">{{ new Date(post.createdAt).toLocaleDateString('fr-FR') }}</span>
                 </div>
                 <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
                         href="{{route('post.edit', [post.id])}}">{{post.title}}</a></h2>
@@ -34,9 +34,9 @@
                     <div class="flex items-center space-x-4 mb-5">
                         <img class="w-7 h-7 rounded-full"
                             src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                            alt="Jese Leos avatar" />
+                            alt="{{ auth.user.name }}" />
                         <span class="font-medium dark:text-white">
-                            Jese Leos
+                            {{ auth.user.name }}
                         </span>
                     </div>
                     <a href="#"
@@ -50,6 +50,7 @@
                         </svg>
                     </a>
                 </div>
+                @if(auth.user.id === post.userId)                  
                 <div class="flex justify-between items-center">
                     <a href="{{route('post.edit', [post.id])}}" title="Edit">✏️</a>
                     <form action="{{route('post.delete', [post.id])}}?_method=delete" method="post">
@@ -57,6 +58,7 @@
                         <button type="submit" title="Delete">🗑️</button>
                     </form>
                 </div>
+                @end
             </article>
             @end
         </div>
