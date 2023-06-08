@@ -6,11 +6,19 @@
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
             <form action="{{route('post.update', [post.id])}}?_method=patch" method="post" enctype="multipart/form-data">
-            {{ csrfField() }}
+                {{ csrfField() }}
                 @!component('components/input', {
                 name: 'title',
                 label:'Title',
                 value: post.title
+                })
+
+                @!component('components/input', {
+                name: 'categoryId',
+                label:'Category',
+                value: category ? post.categoryId : '',
+                type: 'select',
+                options: categories ? categories.reduce((acc, c) => ({ ...acc, [c.id]: c.name }), {}) : {}       
                 })
 
                 @!component('components/input', {
@@ -24,7 +32,7 @@
                 name: 'thumbnail',
                 type: 'file',
                 label:'Thumbnail',
-                value: post.thumbnail
+                //value: post.thumbnail
                 })
 
                 <button type="submit"

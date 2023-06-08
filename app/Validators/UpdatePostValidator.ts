@@ -1,8 +1,8 @@
 import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'//@ts-ignore
-import Category from 'App/Models/Category'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Category from '../Models/Category'
 
-export default class PostValidator {
+export default class UpdatePostValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   /*
@@ -42,10 +42,5 @@ thumbnail: schema.file.optional({size:'2mb', extnames:['jpg', 'png', 'jpeg']})
    * }
    *
    */
-  public messages: CustomMessages = {
-    'title.minLength' : 'The title must be at least 5 characters',
-    'title.unique' : 'Another post has the same title',
-    'content.minLength' : 'The content must be at least 20 characters',
-    'thumbnail.extnames' : 'The thumbnail must be a jpg/png/jpeg file and under 2mb'
-  }
+  public messages: CustomMessages = {}
 }

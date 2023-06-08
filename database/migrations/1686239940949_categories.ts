@@ -1,15 +1,12 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'posts'
+  protected tableName = 'categories'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')
-      table.string('title').notNullable().unique()
-      table.text('content').notNullable()
-      table.string('thumbnail').nullable()
+      table.string('name')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
